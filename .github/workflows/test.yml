@@ -41,13 +41,13 @@ jobs:
       #   - creates a new node_modules/@npmcli/run-script/node_modules file structure
       #   - doesn't upgrade the node_modules/node-gyp
 
-      # - name: Upgrade node-gyp inside @npmcli/run-script package
-      #   if: ${{ always() }}
-      #   run: |
-      #     $nodePath = (Get-Command node).Path
-      #     $nodeDir = Split-Path -Parent $nodePath
-      #     Push-Location $nodeDir\\node_modules\\npm\\node_modules\\@npmcli\\run-script
-      #     npm install node-gyp@^11.2.0
+      - name: Upgrade node-gyp inside @npmcli/run-script package
+        if: ${{ always() }}
+        run: |
+          $nodePath = (Get-Command node).Path
+          $nodeDir = Split-Path -Parent $nodePath
+          Push-Location $nodeDir\\node_modules\\npm\\node_modules\\@npmcli\\run-script
+          npm install --prefix ../../../ node-gyp@^11.2.0
 
       - name: Install project and see what node-gyp version is used
         if: ${{ always() }}
