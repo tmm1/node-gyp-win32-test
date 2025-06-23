@@ -19,15 +19,39 @@ jobs:
 
       - name: Install node-gyp globally
         run: |
+          node-gyp --version
           npm install -g node-gyp@^11.2.0
+          node-gyp --version
 
       - name: Upgrade node-gyp inside npm package
         run: |
-          npm explore -g npm -- npm install node-gyp@^11.2.0 || true
+          # npm explore -g npm -- npm install node-gyp@^11.2.0 || true
+
+          $nodePath = (Get-Command node).Path
+          $nodeDir = Split-Path -Parent $nodePath
+          Push-Location $nodeDir\\node_modules\\npm
+          try {
+            pwd
+            npm install node-gyp@^11.2.0
+          }
+          finally {
+              Pop-Location
+          }
 
       - name: Upgrade node-gyp inside @npmcli/run-script package
         run: |
-          npm explore -g npm/node_modules/@npmcli/run-script -- npm install node-gyp@^11.2.0 || true
+          # npm explore -g npm/node_modules/@npmcli/run-script -- npm install node-gyp@^11.2.0 || true
+
+          $nodePath = (Get-Command node).Path
+          $nodeDir = Split-Path -Parent $nodePath
+          Push-Location $nodeDir\\node_modules\\npm\\node_modules\\@npmcli\\run-script
+          try {
+            pwd
+            npm install node-gyp@^11.2.0
+          }
+          finally {
+              Pop-Location
+          }
 
       - name: Install project and see what node-gyp version is used
         run: |
