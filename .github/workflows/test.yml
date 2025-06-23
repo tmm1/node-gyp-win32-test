@@ -23,11 +23,11 @@ jobs:
 
       - name: Upgrade node-gyp inside npm package
         run: |
-          npm explore -g npm -- npm install node-gyp@^11.2.0
+          npm explore -g npm -- npm install node-gyp@^11.2.0 || true
 
       - name: Upgrade node-gyp inside @npmcli/run-script package
         run: |
-          npm explore -g npm/node_modules/@npmcli/run-script -- npm install node-gyp@^11.2.0
+          npm explore -g npm/node_modules/@npmcli/run-script -- npm install node-gyp@^11.2.0 || true
 
       - name: Install project and see what node-gyp version is used
         run: |
