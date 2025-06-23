@@ -20,7 +20,8 @@ jobs:
       - name: Find where node-gyp is preinstalled
         shell: bash
         run: |
-          find $(dirname $(which node)) -ls | grep node-gyp
+          find $(dirname $(which node)) -ls | grep node-gyp/package.json
+          find $(dirname $(which node)) | grep node-gyp/package.json | xargs grep version
 
       - name: Install node-gyp globally
         run: |
