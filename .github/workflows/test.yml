@@ -23,6 +23,7 @@ jobs:
           node-gyp --version
 
       - name: Upgrade node-gyp inside npm package
+        if: ${{ always() }}
         run: |
           $ErrorActionPreference = "Continue"
           $nodePath = (Get-Command node).Path
@@ -31,6 +32,7 @@ jobs:
           (npm install node-gyp@^11.2.0)
 
       - name: Upgrade node-gyp inside @npmcli/run-script package
+        if: ${{ always() }}
         run: |
           $ErrorActionPreference = "Continue"
           $nodePath = (Get-Command node).Path
@@ -39,6 +41,7 @@ jobs:
           (npm install node-gyp@^11.2.0)
 
       - name: Install project and see what node-gyp version is used
+        if: ${{ always() }}
         run: |
           $npmOutput = npm ci 2>&1 | Tee-Object -Variable npmOutput
           Write-Host $npmOutput
