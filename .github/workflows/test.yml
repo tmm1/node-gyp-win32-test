@@ -22,25 +22,10 @@ jobs:
         run: |
           find $(dirname $(which node)) | grep node-gyp/package.json | xargs grep version
 
-      - name: Install node-gyp globally
-        run: |
-          npm install -g node-gyp@^11.2.0
-          node-gyp --version
-
-      - name: Upgrade node-gyp inside npm package
-        if: ${{ always() }}
-        run: |
-          $nodePath = (Get-Command node).Path
-          $nodeDir = Split-Path -Parent $nodePath
-          Push-Location $nodeDir\\node_modules\\npm
-          pwd
-          cat package.json
-          npm install node-gyp@^11.2.0
-
       - name: Upgrade node-gyp inside @npmcli/run-script package
         if: ${{ always() }}
         run: |
-          npm install --global --prefix (Split-Path -Parent (Get-Command node).Path) node-gyp@^11.2.0
+          npm install --global --prefix (Split-Path -Parent (Get-Command node).Path)/node_modules/npm node-gyp@^11.2.0
 
       - name: Install project and see what node-gyp version is used
         if: ${{ always() }}
