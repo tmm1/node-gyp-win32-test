@@ -20,7 +20,6 @@ jobs:
       - name: Find where node-gyp is preinstalled
         shell: bash
         run: |
-          find $(dirname $(which node)) -ls | grep node-gyp/package.json
           find $(dirname $(which node)) | grep node-gyp/package.json | xargs grep version
 
       - name: Install node-gyp globally
@@ -34,6 +33,8 @@ jobs:
           $nodePath = (Get-Command node).Path
           $nodeDir = Split-Path -Parent $nodePath
           Push-Location $nodeDir\\node_modules\\npm
+          pwd
+          cat package.json
           npm install node-gyp@^11.2.0
 
       # This might work but:
@@ -47,6 +48,7 @@ jobs:
           $nodePath = (Get-Command node).Path
           $nodeDir = Split-Path -Parent $nodePath
           Push-Location $nodeDir\\node_modules\\npm\\node_modules\\@npmcli\\run-script
+          pwd
           npm install --prefix ../../../ node-gyp@^11.2.0
 
       - name: Install project and see what node-gyp version is used
@@ -54,7 +56,7 @@ jobs:
         run: |
           npm ci 2>&1 | Tee-Object -Variable npmOutput
           Write-Host $npmOutput
-          if ($npmOutput -notmatch "11.2.0") {
+          if ($npmOutput -notmatch "/11\.2\.0/") {
             Write-Error "Expected node-gyp version 11.2 in npm ci output, but not found"
             exit 1
           }
