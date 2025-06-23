@@ -24,8 +24,7 @@ jobs:
 
       - name: Upgrade node-gyp inside npm package
         run: |
-          # npm explore -g npm -- npm install node-gyp@^11.2.0 || true
-
+          $ErrorActionPreference = "Continue"
           $nodePath = (Get-Command node).Path
           $nodeDir = Split-Path -Parent $nodePath
           Push-Location $nodeDir\\node_modules\\npm
@@ -39,8 +38,7 @@ jobs:
 
       - name: Upgrade node-gyp inside @npmcli/run-script package
         run: |
-          # npm explore -g npm/node_modules/@npmcli/run-script -- npm install node-gyp@^11.2.0 || true
-
+          $ErrorActionPreference = "Continue"
           $nodePath = (Get-Command node).Path
           $nodeDir = Split-Path -Parent $nodePath
           Push-Location $nodeDir\\node_modules\\npm\\node_modules\\@npmcli\\run-script
@@ -54,4 +52,10 @@ jobs:
 
       - name: Install project and see what node-gyp version is used
         run: |
-          npm ci
+          $npmOutput = npm ci 2>&1 | Tee-Object -Variable npmOutput
+          Write-Host $npmOutput
+          if ($npmOutput -notmatch "11\.2") {
+            Write-Error "Expected node-gyp version 11.2 in npm ci output, but not found"
+            exit 1
+          }
+          
