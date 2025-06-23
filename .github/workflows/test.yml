@@ -17,7 +17,18 @@ jobs:
         with:
           python-version: "3.11"
 
-      - run: |
+      - name: Install node-gyp globally
+        run: |
           npm install -g node-gyp@^11.2.0
+
+      - name: Upgrade node-gyp inside npm package
+        run: |
           npm explore -g npm -- npm install node-gyp@^11.2.0
+
+      - name: Upgrade node-gyp inside @npmcli/run-script package
+        run: |
+          npm explore -g npm/node_modules/@npmcli/run-script -- npm install node-gyp@^11.2.0
+
+      - name: Install project and see what node-gyp version is used
+        run: |
           npm ci
