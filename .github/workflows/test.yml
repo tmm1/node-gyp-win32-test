@@ -1,5 +1,7 @@
-on: workflow_dispatch
-on: push
+on:
+  workflow_dispatch:
+  push:
+
 jobs:
   windows:
     name: Windows
