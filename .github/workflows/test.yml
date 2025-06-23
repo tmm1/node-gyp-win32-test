@@ -25,7 +25,8 @@ jobs:
       - name: Upgrade node-gyp inside @npmcli/run-script package
         if: ${{ always() }}
         run: |
-          npm install --global --prefix (Split-Path -Parent (Get-Command node).Path)\\node_modules\\npm node-gyp@^11.2.0
+          $nodePath = Split-Path -Parent (Get-Command node).Path
+          npm install --global --prefix $nodePath\\node_modules\\npm node-gyp@^11.2.0
 
       - name: Install project and see what node-gyp version is used
         if: ${{ always() }}
