@@ -54,9 +54,9 @@ jobs:
       - name: Install project and see what node-gyp version is used
         if: ${{ always() }}
         run: |
-          npm ci 2>&1 | Tee-Object -Variable npmOutput
-          Write-Host $npmOutput
-          if ($npmOutput -notmatch "/11\.2\.0/") {
+          $output = npm ci 2>&1
+          Write-Host $output
+          if ($output -notlike "*11.2.0*") {
             Write-Error "Expected node-gyp version 11.2 in npm ci output, but not found"
             exit 1
           }
