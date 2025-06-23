@@ -28,13 +28,7 @@ jobs:
           $nodePath = (Get-Command node).Path
           $nodeDir = Split-Path -Parent $nodePath
           Push-Location $nodeDir\\node_modules\\npm
-          try {
-            pwd
-            npm install node-gyp@^11.2.0
-          }
-          finally {
-              Pop-Location
-          }
+          (npm install node-gyp@^11.2.0)
 
       - name: Upgrade node-gyp inside @npmcli/run-script package
         run: |
@@ -42,13 +36,7 @@ jobs:
           $nodePath = (Get-Command node).Path
           $nodeDir = Split-Path -Parent $nodePath
           Push-Location $nodeDir\\node_modules\\npm\\node_modules\\@npmcli\\run-script
-          try {
-            pwd
-            npm install node-gyp@^11.2.0
-          }
-          finally {
-              Pop-Location
-          }
+          (npm install node-gyp@^11.2.0)
 
       - name: Install project and see what node-gyp version is used
         run: |
