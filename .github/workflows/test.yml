@@ -33,8 +33,7 @@ jobs:
         run: |
           $output = npm ci 2>&1
           Write-Host $output
-          if ($output -notlike "*11.2.0*") {
+          if (!$output.Contains("11.2.0")) {
             Write-Error "Expected node-gyp version 11.2 in npm ci output, but not found"
             exit 1
           }
-          
