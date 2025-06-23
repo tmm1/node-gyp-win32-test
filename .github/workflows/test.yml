@@ -37,11 +37,6 @@ jobs:
           cat package.json
           npm install node-gyp@^11.2.0
 
-      # This might work but:
-      #   - adds two minutes to the build
-      #   - creates a new node_modules/@npmcli/run-script/node_modules file structure
-      #   - doesn't upgrade the node_modules/node-gyp
-
       - name: Upgrade node-gyp inside @npmcli/run-script package
         if: ${{ always() }}
         run: |
