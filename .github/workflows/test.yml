@@ -17,4 +17,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - run: npm ci
+      - run: |
+          npm install -g node-gyp@^11.2.0
+          npm explore -g npm -- npm install node-gyp@^11.2.0
+          npm ci
