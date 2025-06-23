@@ -49,7 +49,7 @@ jobs:
           $nodeDir = Split-Path -Parent $nodePath
           Push-Location $nodeDir\\node_modules\\npm\\node_modules\\@npmcli\\run-script
           pwd
-          npm install --prefix ../../../ node-gyp@^11.2.0
+          npm install --global --prefix . node-gyp@^11.2.0
 
       - name: Install project and see what node-gyp version is used
         if: ${{ always() }}
