@@ -37,3 +37,7 @@ jobs:
             Write-Error "Expected node-gyp version 11.2 in npm ci output, but not found"
             exit 1
           }
+
+      - name: npm install
+        run: |
+          npm install
