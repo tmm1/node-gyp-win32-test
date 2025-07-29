@@ -31,6 +31,15 @@ jobs:
           $nodePath = Split-Path -Parent (Get-Command node).Path
           npm install --global --prefix $nodePath\\node_modules\\npm node-gyp@^11.2.0
 
+      - name: Set node-gyp headers dir
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            echo "npm_config_devdir=$GITHUB_WORKSPACE\\node-cache" >> $GITHUB_ENV
+          else
+            echo "npm_config_devdir=$GITHUB_WORKSPACE/node-cache" >> $GITHUB_ENV
+          fi
+
       - name: npm install
         shell: bash
         run: |
