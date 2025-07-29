@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node postinstall.js"
+    "xpostinstall": "node postinstall.js"
   },
   "author": "",
   "license": "ISC",
